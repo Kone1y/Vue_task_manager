@@ -17,6 +17,7 @@ defineProps<{
 // defineEmits：类型化事件签名，卡片自己不改数据，操作全部上抛（单向数据流）
 const emit = defineEmits<{
   move: [status: TaskStatus]
+  edit: []
   remove: []
 }>()
 
@@ -90,6 +91,7 @@ const PRIORITY_DOT: Record<Task['priority'], string> = {
       <el-button v-if="task.status === 'done'" size="small" plain @click="emit('move', 'todo')">
         重新打开
       </el-button>
+      <el-button size="small" text @click="emit('edit')">编辑</el-button>
       <el-button size="small" text type="danger" @click="emit('remove')">删除</el-button>
     </div>
   </article>
