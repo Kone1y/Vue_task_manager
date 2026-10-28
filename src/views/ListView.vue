@@ -4,10 +4,12 @@ import { storeToRefs } from 'pinia'
 import TaskList from '@/components/common/TaskList.vue'
 import TaskDialog from '@/components/task/TaskDialog.vue'
 import TaskFilter from '@/components/task/TaskFilter.vue'
+import { useNotification } from '@/composables/useNotification'
 import { useTaskStore } from '@/stores/task'
 import { CATEGORY_LABEL, PRIORITY_LABEL, type Task, type TaskSaveEvent } from '@/types/task'
 import { formatDate } from '@/utils/date'
 
+const message = useNotification()
 const store = useTaskStore()
 
 // storeToRefs 解构陷阱：直接 const { keyword } = store 解构出来的是一次性普通值，
@@ -43,10 +45,10 @@ async function handleRemove(task: Task) {
 function handleSave(event: TaskSaveEvent) {
   if (event.mode === 'create') {
     store.addTask(event.form)
-    ElMessage.success('任务已创建')
+    message.success('任务已创建')
   } else if (event.task) {
     store.updateTask(event.task.id, event.form)
-    ElMessage.success('任务已更新')
+    message.success('任务已更新')
   }
 }
 </script>

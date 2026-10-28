@@ -3,9 +3,11 @@ import { CircleCheck, Document, Loading } from '@element-plus/icons-vue'
 import TaskColumn from '@/components/task/TaskColumn.vue'
 import TaskFilter from '@/components/task/TaskFilter.vue'
 import TaskDialog from '@/components/task/TaskDialog.vue'
+import { useNotification } from '@/composables/useNotification'
 import { useTaskStore } from '@/stores/task'
 import { STATUS_LABEL, type Task, type TaskSaveEvent, type TaskStatus } from '@/types/task'
 
+const message = useNotification()
 const store = useTaskStore()
 
 // markRaw：icon 是组件对象，标记为永不被深度代理
@@ -50,15 +52,19 @@ function openEdit(task: Task) {
 function handleSave(event: TaskSaveEvent) {
   if (event.mode === 'create') {
     store.addTask(event.form)
-    ElMessage.success('任务已创建')
+    message.success('任务已创建')
   } else if (event.task) {
     store.updateTask(event.task.id, event.form)
-    ElMessage.success('任务已更新')
+    message.success('任务已更新')
   }
 }
 
 function handleMove(id: string, status: TaskStatus) {
   store.moveTask(id, status)
+  if (status === 'done') {
+    const task = store.getTaskById(id)
+    if (task) message.notifySuccess('看板', `「${task.title}」已完成`)
+  }
 }
 
 async function handleRemove(task: Task) {

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
+import { useNotification } from '@/composables/useNotification'
 import { MOCK_PASSWORD, useUserStore } from '@/stores/user'
 
+const message = useNotification()
 const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
@@ -35,10 +37,10 @@ async function handleLogin() {
   loading.value = false
 
   if (!ok) {
-    ElMessage.error(`登录失败，演示密码为 ${MOCK_PASSWORD}`)
+    message.error(`登录失败，演示密码为 ${MOCK_PASSWORD}`)
     return
   }
-  ElMessage.success(`欢迎，${userStore.name}！`)
+  message.success(`欢迎，${userStore.name}！`)
   // 回到守卫记录的来路，没有则进看板
   const redirect = route.query.redirect
   router.push(typeof redirect === 'string' ? redirect : { name: 'board' })
