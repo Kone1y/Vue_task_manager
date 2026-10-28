@@ -7,7 +7,7 @@ const theme = useTheme()
 provide(THEME_KEY, theme)
 
 const route = useRoute()
-const appTitle = 'TaskFlow' // Task 15 改为读取 import.meta.env.VITE_APP_TITLE
+const appTitle = import.meta.env.VITE_APP_TITLE
 </script>
 
 <template>
