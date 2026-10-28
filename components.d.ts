@@ -35,5 +35,6 @@ declare module 'vue' {
     TaskDialog: typeof import('./src/components/task/TaskDialog.vue')['default']
     TaskFilter: typeof import('./src/components/task/TaskFilter.vue')['default']
     TaskForm: typeof import('./src/components/task/TaskForm.vue')['default']
+    TaskList: typeof import('./src/components/common/TaskList.vue')['default']
   }
 }
