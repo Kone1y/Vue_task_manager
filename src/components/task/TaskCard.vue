@@ -20,8 +20,8 @@ const emit = defineEmits<{
   remove: []
 }>()
 
-const CATEGORY_TAG: Record<Category, '' | 'success' | 'warning'> = {
-  work: '',
+const CATEGORY_TAG: Record<Category, 'primary' | 'success' | 'warning'> = {
+  work: 'primary',
   study: 'success',
   life: 'warning',
 }
