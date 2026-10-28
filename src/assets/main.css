@@ -1,1 +1,12 @@
-/* Tailwind 将在 Task 2 接入 */
+/* Tailwind CSS 4 入口：刻意不引入 preflight，避免与 Element Plus 样式互相覆盖 */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* 深色模式改由 .dark 类驱动（配合 useTheme composable），而非系统 media query */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* 品牌色对齐 Element Plus 主色，可在模板里用 bg-primary / text-primary */
+  --color-primary: #409eff;
+}
