@@ -4,8 +4,12 @@ import { useNotification } from '../useNotification'
 
 // mock 掉 element-plus：单测不渲染真实弹层，只验证调用契约
 vi.mock('element-plus', () => ({
-  ElMessage: { success: vi.fn(), error: vi.fn(), info: vi.fn() },
-  ElNotification: vi.fn(),
+  ElMessage: {
+    success: vi.fn<(message: string) => void>(),
+    error: vi.fn<(message: string) => void>(),
+    info: vi.fn<(message: string) => void>(),
+  },
+  ElNotification: vi.fn<(options: Record<string, unknown>) => void>(),
 }))
 
 describe('useNotification', () => {
